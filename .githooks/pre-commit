@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+
+require 'english'
+require 'rubocop'
+require 'yaml'
+
+def is_file_exist?(check_list, file_name)
+  check_list.each do |check_item|
+    if check_item == file_name
+      return true
+    else
+      check_item_path = check_item.split('/')
+      file_path = file_name.split('/')
+
+      while (check_item_path != []) && (file_path != []) do
+        if (check_item_path[0] == file_path[0]) ||
+            (check_item_path[0] == '*') ||
+            (check_item_path[0] == '**')
+          check_item_path = check_item_path[1..-1]
+          file_path = file_path[1..-1]
+        else
+          break
+        end
+      end
+
+      if file_path == []
+        return true
+      end
+    end
+  end
+
+  false
+end
+
+exclude_list = YAML.load_file('.rubocop.yml')['AllCops']['Exclude']
+
+async_ms = []
+async_ds = []
+feasibles = []
+
+ASYNC_M = /^(A|M|R|C)M/
+ASYNC_D = /^(A|M|R|C)D/
+FEASIBLE = /^(A|M|R|C)\s/
+
+`git status --porcelain`.split(/\n/).select do |f|
+    file_name = f.split(' ').last
+    file_ext = File.extname(file_name)
+
+    if file_ext == '.rb' && !is_file_exist?(exclude_list, file_name)
+        if f =~ ASYNC_M
+            arr = async_ms
+        elsif f =~ ASYNC_D
+            arr = async_ds
+        elsif f =~ FEASIBLE
+            arr = feasibles
+        else
+            next;
+        end
+
+        arr << file_name
+    end
+end
+
+async_ms.select do |f|
+    `cp #{f} #{f}.commitbak`
+    `git checkout -- #{f}`
+end
+
+async_ds.select do |f|
+    `git checkout -- #{f}`
+end
+
+files_name = async_ms.join(' ') + ' ' + async_ds.join(' ') + ' ' +
+    feasibles.join(' ')
+
+system("rubocop #{files_name}") unless files_name == '  '
+
+succ_flag = $CHILD_STATUS.to_s[-1].to_i
+
+async_ms.each do |f|
+    `mv #{f}.commitbak #{f}`
+end
+
+async_ds.each do |f|
+    `rm #{f}`
+end
+
+exit succ_flag
+

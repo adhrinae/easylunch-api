@@ -1,0 +1,54 @@
+#!/bin/sh
+
+origin_path="../../.githooks"
+target_path="../.git/hooks"
+hooks=('pre-commit')
+
+echo "\n************************************************************"
+
+for hook in "${hooks[@]}"; do
+    find "${hook}" &> /dev/null
+
+    if [ $? == 1 ]; then
+        continue
+    fi
+
+    res_str="Set chmod +x '${hook}'"
+    chmod 755 ${hook}
+
+    if [ $? == 0 ]; then
+        echo "$res_str done"
+    else
+        echo "$res_str failed\n"
+        continue
+    fi
+
+		if [ ! -d "${target_path}" ]
+	 	then
+			echo "${target_path} does not exist. Create ${target_path}"
+			mkdir "${target_path}"
+		fi
+
+    find "${target_path}/${hook}" &> /dev/null
+
+    if [ $? == 0 ]; then
+        rm "${target_path}/${hook}"
+        echo "Before install, old symbolic link is found. Remove complete"
+    fi
+
+    res_str="Create symbolic link of '${hook}' to '${target_path}/${hook}'"
+    ln -s "${origin_path}/${hook}" "${target_path}/${hook}"
+
+    if [ $? == 0 ]; then
+        echo "$res_str done"
+    else
+        echo "$res_str failed\n"
+        continue
+    fi
+
+    echo ""
+done
+
+echo "Set git hooking is done"
+
+echo "************************************************************\n"

@@ -1,0 +1,32 @@
+# Rules
+AllCops:
+  Exclude:
+    - Gemfile
+    - Rakefile
+    - Guardfile
+    - config/**/*
+    - bin/**/*
+    - app/controllers/application_controller.rb
+    - app/helpers/application_helper.rb
+    - app/mailers/application_mailer.rb
+    - db/schema.rb
+    - db/seeds.rb
+    - db/migrate/*
+    - test/test_helper.rb
+
+Style/IndentationConsistency:
+  EnforcedStyle: rails
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+# Enable
+Rails:
+  Enabled: true
+
+# Disable
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: false
+  
+Style/AsciiComments:
+  Enabled: false
