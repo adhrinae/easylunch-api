@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/npmachine/easylunch-api.png?label=ready&title=Ready)](https://waffle.io/npmachine/easylunch-api)
 # README
 
 ### Ruby version
