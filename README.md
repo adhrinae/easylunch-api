@@ -6,6 +6,9 @@
 ### Rails version
 * 4.2.6
 
+### Specification document
+* http://docs.easylunchapi.apiary.io
+
 ### Coding convention of this project
 * Based on :
     * ruby-style-guide : https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md#no-space-inside-range-literals
