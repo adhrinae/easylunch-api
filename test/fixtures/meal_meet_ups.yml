@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_price: 1
+  messenger_code: MyString
+  messenger_room_id: MyString
+  admin_id: 1
+  meetup_status: 1
+
+two:
+  total_price: 1
+  messenger_code: MyString
+  messenger_room_id: MyString
+  admin_id: 1
+  meetup_status: 1

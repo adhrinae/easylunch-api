@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meal_log_id: 1
+  meal_meet_up_id: 1
+  task_status: 1
+
+two:
+  meal_log_id: 1
+  meal_meet_up_id: 1
+  task_status: 1
