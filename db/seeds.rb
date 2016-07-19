@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+CodeTable.create(code_type: "messenger", code: 0, value: "slack")
+CodeTable.create(code_type: "messenger", code: 1, value: "telegram")
+CodeTable.create(code_type: "messenger", code: 2, value: "kakotalk")
+CodeTable.create(code_type: "meetup_status", code: 0, value: "created")
+CodeTable.create(code_type: "meetup_status", code: 1, value: "paying")
+CodeTable.create(code_type: "meetup_status", code: 2, value: "complete")
+CodeTable.create(code_type: "task_status", code: 0, value: "unpaid")
+CodeTable.create(code_type: "task_status", code: 1, value: "paid")
