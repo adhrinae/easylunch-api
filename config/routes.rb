@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  post 'meal_meet_ups'  => 'meal_meet_up#create', defaults: { format: 'json' }
+  patch 'meal_meet_ups' => 'meal_meet_up#update', defaults: { format: 'json' }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
