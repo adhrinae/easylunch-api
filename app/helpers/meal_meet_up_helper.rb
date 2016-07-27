@@ -40,24 +40,4 @@ module MealMeetUpHelper
     !email_invalid?(meetup_params[:email]) &&
       !meetup_params[:messenger_user_id].to_s.empty?
   end
-
-  def email_invalid?(email)
-    !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-  end
-
-  def render_error_400
-    respond_to do |format|
-      format.json do
-        render json: { error: 'invalid parameters' }, status: 400
-      end
-    end
-  end
-
-  def render_error_401
-    respond_to do |format|
-      format.json do
-        render json: { error: 'cannot verify user information' }, status: 401
-      end
-    end
-  end
 end

@@ -10,7 +10,7 @@ class MealMeetUpController < ApplicationController
       respond_to do |format|
         format.json { render json: create_response(@meetup_data), status: 201 }
       end
-    elsif !params_valid?(@params)
+    elsif !params_valid?
       render_error_400
     else
       render_error_401
@@ -23,7 +23,7 @@ class MealMeetUpController < ApplicationController
       respond_to do |format|
         format.json { render json: response_json(@meetup), status: 200 }
       end
-    elsif !params_valid?(@params)
+    elsif !params_valid?
       render_error_400
     else
       render_error_401
