@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
     !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   end
 
+  def render_200(json)
+    respond_to do |format|
+      format.json { render json: json, status: 200 }
+    end
+  end
+
   def render_error_400
     respond_to do |format|
       format.json do
