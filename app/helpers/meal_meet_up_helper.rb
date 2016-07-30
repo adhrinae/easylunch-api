@@ -15,12 +15,12 @@ module MealMeetUpHelper
   def load_user
     params = meetup_params
     if load_status == 'created'
-      @user = User.create(email: params[:email])
+      @user = User.create(service_uid: params[:email])
       UserMessenger.create(user_id: @user.id,
                            messenger_user_id: params[:messenger_user_id],
                            messenger_code: load_messenger_code)
     else
-      @user = User.find_by(email: params[:email])
+      @user = User.find_by(service_uid: params[:email])
     end
     @user
   end
@@ -39,25 +39,5 @@ module MealMeetUpHelper
     # messenger_user_id가 optional이지만, 지금은 슬랙을 중심으로 개발중이고 이후에 가능하면 수정
     !email_invalid?(meetup_params[:email]) &&
       !meetup_params[:messenger_user_id].to_s.empty?
-  end
-
-  def email_invalid?(email)
-    !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-  end
-
-  def render_error_400
-    respond_to do |format|
-      format.json do
-        render json: { error: 'invalid parameters' }, status: 400
-      end
-    end
-  end
-
-  def render_error_401
-    respond_to do |format|
-      format.json do
-        render json: { error: 'cannot verify user information' }, status: 401
-      end
-    end
   end
 end
