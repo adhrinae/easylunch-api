@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'english'
+#require 'english' # Use it if you're using macOS
 require 'rubocop'
 require 'yaml'
 
@@ -86,4 +86,3 @@ async_ds.each do |f|
 end
 
 exit succ_flag
-
