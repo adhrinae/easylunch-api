@@ -1,16 +1,11 @@
 # Members Controller
 class MembersController < ApplicationController
+  before_action :check_params, only: [:add_member]
   def add_member
     @meetup = find_meetup
     entry_members = member_params[:member_ids]
-    if params_authorizable? && params_valid?
-      entry_members.each { |member| add_flow(member, @meetup) }
-      render_200(add_user_response(@meetup))
-    elsif !params_valid?
-      render_error_400
-    else
-      render_error_401
-    end
+    entry_members.each { |member| init_member(member, @meetup) }
+    render_200(add_user_response(@meetup))
   end
 
   private
@@ -25,14 +20,15 @@ class MembersController < ApplicationController
                                    member_params[:messenger_room_id])
     end
 
-    def add_flow(member, meetup)
+    # TODO: 유저 등록 관련 작업 전반에 모두 들어갈 필요가 있으니 user.rb에 정의해야할듯
+    def init_member(member, meetup)
       user = User.create(service_uid: member)
       user_log = MealLog.create(user_id: user.id)
       UserMessenger.create(user_id: user.id,
                            messenger_code: load_messenger_code)
       MealMeetUpTask.create(meal_log_id: user_log.id,
                             meal_meet_up_id: meetup.id,
-                            task_status: init_task_code)
+                            task_status: load_task_code)
     end
 
     def add_user_response(meetup)
@@ -54,13 +50,23 @@ class MembersController < ApplicationController
     end
 
     # Task가 만들어질땐 'unpaid'상태로 등록.
-    def init_task_code
+    def load_task_code
       CodeTable.find_task('unpaid').id
+    end
+
+    def check_params
+      if !params_valid?
+        render_error_400
+      elsif !params_authorizable?
+        render_error_401
+      else
+        return true
+      end
     end
 
     def params_valid?
       !member_params[:messenger_room_id].to_s.empty? &&
-        !member_params[:member_ids].empty?
+        !member_params[:member_ids].to_s.empty?
     end
 
     def params_authorizable?
