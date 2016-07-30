@@ -1,10 +1,14 @@
 # Members Controller
 class MembersController < ApplicationController
+  include MembersHelper
   before_action :check_params, only: [:add_member]
+  before_action :check_meetup, only: [:add_member]
   def add_member
     @meetup = find_meetup
     entry_members = member_params[:member_ids]
     entry_members.each { |member| init_member(member, @meetup) }
+    # 맴버가 추가된 MeetUp은 상태를 변경해준다.
+    @meetup.update(meetup_status: CodeTable.find_status('paying').id)
     render_200(add_user_response(@meetup))
   end
 
@@ -43,34 +47,5 @@ class MembersController < ApplicationController
     def get_members_list(meetup)
       tasks = meetup.meal_meet_up_tasks
       tasks.map { |task| task.meal_log.user.service_uid }
-    end
-
-    def load_messenger_code
-      CodeTable.find_messenger(member_params[:messenger]).id
-    end
-
-    # Task가 만들어질땐 'unpaid'상태로 등록.
-    def load_task_code
-      CodeTable.find_task('unpaid').id
-    end
-
-    def check_params
-      if !params_valid?
-        render_error_400
-      elsif !params_authorizable?
-        render_error_401
-      else
-        return true
-      end
-    end
-
-    def params_valid?
-      !member_params[:messenger_room_id].to_s.empty? &&
-        !member_params[:member_ids].to_s.empty?
-    end
-
-    def params_authorizable?
-      !email_invalid?(member_params[:email]) &&
-        !member_params[:messenger].to_s.empty?
     end
 end
