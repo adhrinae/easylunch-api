@@ -53,7 +53,7 @@ class MealMeetUpController < ApplicationController
 
     def response_json(data)
       { data:
-        { email: data.admin.email,
+        { email: data.admin.service_uid,
           messenger: data.messenger.value,
           messenger_room_id: data.messenger_room_id,
           total_price: data.total_price,

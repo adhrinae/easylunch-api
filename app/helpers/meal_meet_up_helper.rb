@@ -15,12 +15,12 @@ module MealMeetUpHelper
   def load_user
     params = meetup_params
     if load_status == 'created'
-      @user = User.create(email: params[:email])
+      @user = User.create(service_uid: params[:email])
       UserMessenger.create(user_id: @user.id,
                            messenger_user_id: params[:messenger_user_id],
                            messenger_code: load_messenger_code)
     else
-      @user = User.find_by(email: params[:email])
+      @user = User.find_by(service_uid: params[:email])
     end
     @user
   end
