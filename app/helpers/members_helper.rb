@@ -1,14 +1,5 @@
 # Members Helper
 module MembersHelper
-  def load_messenger_code
-    CodeTable.find_messenger(member_params[:messenger]).id
-  end
-
-  # Task가 만들어질땐 'unpaid'상태로 등록.
-  def load_task_code
-    CodeTable.find_task('unpaid').id
-  end
-
   def check_meetup
     meetup = find_meetup
     render_error_400 unless meetup.status.value == 'created'

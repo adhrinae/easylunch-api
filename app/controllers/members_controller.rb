@@ -6,7 +6,11 @@ class MembersController < ApplicationController
   def add_member
     @meetup = find_meetup
     entry_members = member_params[:member_ids]
-    entry_members.each { |member| init_member(member, @meetup) }
+    entry_members.each do |member|
+      task_unpaid = CodeTable.find_task('unpaid').id
+      User.init_member(member, @meetup,
+                       load_messenger_code(member_params), task_unpaid)
+    end
     # 맴버가 추가된 MeetUp은 상태를 변경해준다.
     @meetup.update(meetup_status: CodeTable.find_status('paying').id)
     render_200(add_user_response(@meetup))
@@ -22,17 +26,6 @@ class MembersController < ApplicationController
     def find_meetup
       @meetup = MealMeetUp.find_by(messenger_room_id:
                                    member_params[:messenger_room_id])
-    end
-
-    # TODO: 유저 등록 관련 작업 전반에 모두 들어갈 필요가 있으니 user.rb에 정의해야할듯
-    def init_member(member, meetup)
-      user = User.create(service_uid: member)
-      user_log = MealLog.create(user_id: user.id)
-      UserMessenger.create(user_id: user.id,
-                           messenger_code: load_messenger_code)
-      MealMeetUpTask.create(meal_log_id: user_log.id,
-                            meal_meet_up_id: meetup.id,
-                            task_status: load_task_code)
     end
 
     def add_user_response(meetup)

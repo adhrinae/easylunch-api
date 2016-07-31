@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
+  def load_messenger_code(params)
+    CodeTable.find_messenger(params[:messenger]).id
+  end
+
   def email_invalid?(email)
     !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
   end
@@ -10,6 +14,12 @@ class ApplicationController < ActionController::Base
   def render_200(json)
     respond_to do |format|
       format.json { render json: json, status: 200 }
+    end
+  end
+
+  def render_201(json)
+    respond_to do |format|
+      format.json { render json: json, status: 201 }
     end
   end
 

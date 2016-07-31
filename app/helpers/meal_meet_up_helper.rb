@@ -4,30 +4,35 @@ module MealMeetUpHelper
     meetup_params[:status].nil? ? 'created' : meetup_params[:status]
   end
 
-  def load_status_code
-    CodeTable.find_status(load_status).id
-  end
-
-  def load_messenger_code
-    CodeTable.find_messenger(meetup_params[:messenger]).id
-  end
-
-  def load_user
-    params = meetup_params
-    if load_status == 'created'
-      @user = User.create(service_uid: params[:email])
-      UserMessenger.create(user_id: @user.id,
-                           messenger_user_id: params[:messenger_user_id],
-                           messenger_code: load_messenger_code)
-    else
-      @user = User.find_by(service_uid: params[:email])
-    end
-    @user
+  def load_status_code(status)
+    CodeTable.find_status(status).id
   end
 
   def find_meetup
     @meetup = MealMeetUp.find_by(messenger_room_id:
-                                 @params[:messenger_room_id])
+                                 meetup_params[:messenger_room_id])
+  end
+
+  # 해당하는 meetup이 없으면 에러
+  def check_meetup
+    meetup = find_meetup
+    if meetup.nil?
+      render_error_400
+    elsif meetup.admin.service_uid != meetup_params[:messenger_user_id].to_s
+      render_error_401
+    else
+      return true
+    end
+  end
+
+  def check_params
+    if !params_valid?
+      render_error_400
+    elsif !params_authorizable?
+      render_error_401
+    else
+      return true
+    end
   end
 
   def params_valid?
@@ -35,7 +40,7 @@ module MealMeetUpHelper
       !meetup_params[:messenger_room_id].to_s.empty?
   end
 
-  def params_authroizable?
+  def params_authorizable?
     # messenger_user_id가 optional이지만, 지금은 슬랙을 중심으로 개발중이고 이후에 가능하면 수정
     !email_invalid?(meetup_params[:email]) &&
       !meetup_params[:messenger_user_id].to_s.empty?
