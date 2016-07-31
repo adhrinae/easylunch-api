@@ -2,7 +2,14 @@
 module MembersHelper
   def check_meetup
     meetup = find_meetup
-    render_error_400 unless meetup.status.value == 'created'
+    unless meetup.status.value == 'created'
+      respond_to do |format|
+        format.json do
+          render json: { error: 'cannot add members to this meetup' },
+                 status: 400
+        end
+      end
+    end
   end
 
   def check_params
