@@ -4,26 +4,25 @@ module MealMeetUpHelper
     meetup_params[:status].nil? ? 'created' : meetup_params[:status]
   end
 
-  def load_status_code
-    CodeTable.find_status(load_status).id
-  end
-
-  def load_user
-    params = meetup_params
-    if load_status == 'created'
-      @user = User.create(service_uid: params[:messenger_user_id])
-      UserMessenger.create(user_id: @user.id,
-                           messenger_user_id: params[:messenger_user_id],
-                           messenger_code: load_messenger_code)
-    else
-      @user = User.find_by(service_uid: params[:messenger_user_id])
-    end
-    @user
+  def load_status_code(status)
+    CodeTable.find_status(status).id
   end
 
   def find_meetup
     @meetup = MealMeetUp.find_by(messenger_room_id:
-                                 @params[:messenger_room_id])
+                                 meetup_params[:messenger_room_id])
+  end
+
+  # 해당하는 meetup이 없으면 에러
+  def check_meetup
+    meetup = find_meetup
+    if meetup.nil?
+      render_error_400
+    elsif meetup.admin.service_uid != meetup_params[:messenger_user_id].to_s
+      render_error_401
+    else
+      return true
+    end
   end
 
   def check_params

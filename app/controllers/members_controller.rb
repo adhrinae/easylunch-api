@@ -28,17 +28,6 @@ class MembersController < ApplicationController
                                    member_params[:messenger_room_id])
     end
 
-    # TODO: 유저 등록 관련 작업 전반에 모두 들어갈 필요가 있으니 user.rb에 정의해야할듯
-    # def init_member(member, meetup)
-    #   user = User.create(service_uid: member)
-    #   user_log = MealLog.create(user_id: user.id)
-    #   UserMessenger.create(user_id: user.id,
-    #                        messenger_code: load_messenger_code)
-    #   MealMeetUpTask.create(meal_log_id: user_log.id,
-    #                         meal_meet_up_id: meetup.id,
-    #                         task_status: load_task_code)
-    # end
-
     def add_user_response(meetup)
       { data:
         { email: meetup.admin.service_uid,
