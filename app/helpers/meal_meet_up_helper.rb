@@ -13,8 +13,18 @@ module MealMeetUpHelper
                                  meetup_params[:messenger_room_id])
   end
 
+  def check_meetup_create
+    meetup = find_meetup
+    return true if meetup.nil?
+    respond_to do |format|
+      format.json do
+        render json: { error: 'meetup already created' }, status: 400
+      end
+    end
+  end
+
   # 해당하는 meetup이 없으면 에러
-  def check_meetup
+  def check_meetup_update
     meetup = find_meetup
     if meetup.nil?
       render_error_400

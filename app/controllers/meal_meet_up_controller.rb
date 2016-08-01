@@ -4,7 +4,8 @@ class MealMeetUpController < ApplicationController
   before_action :check_params, only: [:create, :update]
   before_action :init_meetup, only: [:create]
   before_action :find_meetup, only: [:update]
-  before_action :check_meetup, only: [:update]
+  before_action :check_meetup_create, only: [:create]
+  before_action :check_meetup_update, only: [:update]
 
   def create
     @admin = User.init_member(meetup_params[:messenger_user_id], @meetup,
