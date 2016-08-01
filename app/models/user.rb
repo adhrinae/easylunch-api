@@ -6,13 +6,15 @@ class User < ActiveRecord::Base
 
   # 새로운 맴버 등록시 필요한 일련의 과정들
   def self.init_member(member_uid, meetup, messenger_code, task_code)
-    user = User.create(service_uid: member_uid)
-    user_log = MealLog.create(user_id: user.id)
-    UserMessenger.create(user_id: user.id,
-                         messenger_code: messenger_code)
-    MealMeetUpTask.create(meal_log_id: user_log.id,
-                          meal_meet_up_id: meetup.id,
-                          task_status: task_code)
+    user = find_by(service_uid: member_uid)
+    if user.nil?
+      user = User.create(service_uid: member_uid)
+      user_log = MealLog.create(user_id: user.id)
+      UserMessenger.create(user_id: user.id, messenger_code: messenger_code)
+      MealMeetUpTask.create(meal_log_id: user_log.id,
+                            meal_meet_up_id: meetup.id,
+                            task_status: task_code)
+    end
     user # 바로 user를 사용가능하도록 return
   end
 

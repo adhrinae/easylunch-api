@@ -2,12 +2,12 @@
 class MealMeetUpController < ApplicationController
   include MealMeetUpHelper
   before_action :check_params, only: [:create, :update]
-  before_action :init_meetup, only: [:create]
-  before_action :find_meetup, only: [:update]
-  before_action :check_meetup_create, only: [:create]
   before_action :check_meetup_update, only: [:update]
+  before_action :check_meetup_create, only: [:create]
+  # before_action :init_meetup, only: [:create]
 
   def create
+    init_meetup
     @admin = User.init_member(meetup_params[:messenger_user_id], @meetup,
                               load_messenger_code(meetup_params),
                               CodeTable.find_task('unpaid').id)
