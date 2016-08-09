@@ -38,4 +38,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def check_params
+    if !params_valid?
+      render_error_400
+    elsif !params_authorizable?
+      render_error_401
+    else
+      return true
+    end
+  end
 end

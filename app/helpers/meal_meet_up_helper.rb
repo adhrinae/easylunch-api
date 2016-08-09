@@ -35,16 +35,6 @@ module MealMeetUpHelper
     end
   end
 
-  def check_params
-    if !params_valid?
-      render_error_400
-    elsif !params_authorizable?
-      render_error_401
-    else
-      return true
-    end
-  end
-
   def params_valid?
     !meetup_params[:messenger].empty? &&
       !meetup_params[:messenger_room_id].to_s.empty?

@@ -44,6 +44,7 @@ UserTest	test/models/user_test.rb	/^class UserTest < ActiveSupport::TestCase$/;"
 add_email	app/models/user.rb	/^  def add_email(messenger_code, email)$/;"	f	class:User
 add_member	app/controllers/members_controller.rb	/^  def add_member$/;"	f	class:MembersController
 add_user_response	app/controllers/members_controller.rb	/^    def add_user_response(meetup)$/;"	f	class:MembersController
+before_update_check	app/controllers/meet_up_tasks_controller.rb	/^    def before_update_check$/;"	f	class:MeetUpTasksController
 change	db/migrate/20160719100000_create_code_tables.rb	/^  def change$/;"	f	class:CreateCodeTables
 change	db/migrate/20160719103245_create_users.rb	/^  def change$/;"	f	class:CreateUsers
 change	db/migrate/20160719103324_create_user_messengers.rb	/^  def change$/;"	f	class:CreateUserMessengers
@@ -56,8 +57,7 @@ change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"
 check_meetup	app/helpers/members_helper.rb	/^  def check_meetup$/;"	f	class:MembersHelper
 check_meetup_create	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_create$/;"	f	class:MealMeetUpHelper
 check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_update$/;"	f	class:MealMeetUpHelper
-check_params	app/helpers/meal_meet_up_helper.rb	/^  def check_params$/;"	f	class:MealMeetUpHelper
-check_params	app/helpers/members_helper.rb	/^  def check_params$/;"	f	class:MembersHelper
+check_params	app/controllers/application_controller.rb	/^  def check_params$/;"	f	class:ApplicationController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 email_invalid?	app/controllers/application_controller.rb	/^  def email_invalid?(email)$/;"	f	class:ApplicationController
 find_meetup	app/controllers/members_controller.rb	/^    def find_meetup$/;"	f	class:MembersController
@@ -73,8 +73,11 @@ load_status	app/helpers/meal_meet_up_helper.rb	/^  def load_status$/;"	f	class:M
 load_status_code	app/helpers/meal_meet_up_helper.rb	/^  def load_status_code(status)$/;"	f	class:MealMeetUpHelper
 meetup_params	app/controllers/meal_meet_up_controller.rb	/^    def meetup_params$/;"	f	class:MealMeetUpController
 member_params	app/controllers/members_controller.rb	/^    def member_params$/;"	f	class:MembersController
+menu	app/controllers/meet_up_tasks_controller.rb	/^  def menu$/;"	f	class:MeetUpTasksController
+params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/helpers/meal_meet_up_helper.rb	/^  def params_authorizable?$/;"	f	class:MealMeetUpHelper
 params_authorizable?	app/helpers/members_helper.rb	/^  def params_authorizable?$/;"	f	class:MembersHelper
+params_valid?	app/controllers/meet_up_tasks_controller.rb	/^    def params_valid?$/;"	f	class:MeetUpTasksController
 params_valid?	app/helpers/meal_meet_up_helper.rb	/^  def params_valid?$/;"	f	class:MealMeetUpHelper
 params_valid?	app/helpers/members_helper.rb	/^  def params_valid?$/;"	f	class:MembersHelper
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
@@ -83,5 +86,7 @@ render_error_400	app/controllers/application_controller.rb	/^  def render_error_
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController
 response_json_create	app/controllers/meal_meet_up_controller.rb	/^    def response_json_create(meetup)$/;"	f	class:MealMeetUpController
 response_json_update	app/controllers/meal_meet_up_controller.rb	/^    def response_json_update(meetup)$/;"	f	class:MealMeetUpController
+task_params	app/controllers/meet_up_tasks_controller.rb	/^    def task_params$/;"	f	class:MeetUpTasksController
 update	app/controllers/meal_meet_up_controller.rb	/^  def update$/;"	f	class:MealMeetUpController
+update	app/controllers/meet_up_tasks_controller.rb	/^  def update$/;"	f	class:MeetUpTasksController
 update_additional_info	app/controllers/meal_meet_up_controller.rb	/^    def update_additional_info(admin, meetup)$/;"	f	class:MealMeetUpController
