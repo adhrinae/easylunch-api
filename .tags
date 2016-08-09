@@ -31,6 +31,9 @@ MealMeetUpLogTest	test/models/meal_meet_up_log_test.rb	/^class MealMeetUpLogTest
 MealMeetUpTask	app/models/meal_meet_up_task.rb	/^class MealMeetUpTask < ActiveRecord::Base$/;"	c
 MealMeetUpTaskTest	test/models/meal_meet_up_task_test.rb	/^class MealMeetUpTaskTest < ActiveSupport::TestCase$/;"	c
 MealMeetUpTest	test/models/meal_meet_up_test.rb	/^class MealMeetUpTest < ActiveSupport::TestCase$/;"	c
+MeetUpTasksController	app/controllers/meet_up_tasks_controller.rb	/^class MeetUpTasksController < ApplicationController$/;"	c
+MeetUpTasksControllerTest	test/controllers/meet_up_tasks_controller_test.rb	/^class MeetUpTasksControllerTest < ActionController::TestCase$/;"	c
+MeetUpTasksHelper	app/helpers/meet_up_tasks_helper.rb	/^module MeetUpTasksHelper$/;"	m
 MembersController	app/controllers/members_controller.rb	/^class MembersController < ApplicationController$/;"	c
 MembersControllerTest	test/controllers/members_controller_test.rb	/^class MembersControllerTest < ActionController::TestCase$/;"	c
 MembersHelper	app/helpers/members_helper.rb	/^module MembersHelper$/;"	m
@@ -50,8 +53,9 @@ change	db/migrate/20160719103627_create_meal_logs.rb	/^  def change$/;"	f	class:
 change	db/migrate/20160719103931_create_meal_meet_up_logs.rb	/^  def change$/;"	f	class:CreateMealMeetUpLogs
 change	db/migrate/20160719135136_change_code_table_column.rb	/^  def change$/;"	f	class:ChangeCodeTableColumn
 change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"	f	class:ChangeUserAndMessenger
-check_meetup	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup$/;"	f	class:MealMeetUpHelper
 check_meetup	app/helpers/members_helper.rb	/^  def check_meetup$/;"	f	class:MembersHelper
+check_meetup_create	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_create$/;"	f	class:MealMeetUpHelper
+check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_update$/;"	f	class:MealMeetUpHelper
 check_params	app/helpers/meal_meet_up_helper.rb	/^  def check_params$/;"	f	class:MealMeetUpHelper
 check_params	app/helpers/members_helper.rb	/^  def check_params$/;"	f	class:MembersHelper
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
