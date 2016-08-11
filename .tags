@@ -60,6 +60,7 @@ check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_upda
 check_params	app/controllers/application_controller.rb	/^  def check_params$/;"	f	class:ApplicationController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 email_invalid?	app/controllers/application_controller.rb	/^  def email_invalid?(email)$/;"	f	class:ApplicationController
+find_meetup	app/controllers/meet_up_tasks_controller.rb	/^    def find_meetup$/;"	f	class:MeetUpTasksController
 find_meetup	app/controllers/members_controller.rb	/^    def find_meetup$/;"	f	class:MembersController
 find_meetup	app/helpers/meal_meet_up_helper.rb	/^  def find_meetup$/;"	f	class:MealMeetUpHelper
 find_messenger_email	app/models/user.rb	/^  def find_messenger_email(messenger_code)$/;"	f	class:User
@@ -90,3 +91,4 @@ task_params	app/controllers/meet_up_tasks_controller.rb	/^    def task_params$/;
 update	app/controllers/meal_meet_up_controller.rb	/^  def update$/;"	f	class:MealMeetUpController
 update	app/controllers/meet_up_tasks_controller.rb	/^  def update$/;"	f	class:MeetUpTasksController
 update_additional_info	app/controllers/meal_meet_up_controller.rb	/^    def update_additional_info(admin, meetup)$/;"	f	class:MealMeetUpController
+update_menu	app/models/user.rb	/^  def self.update_menu(meetup, user_info = {})$/;"	F	class:User

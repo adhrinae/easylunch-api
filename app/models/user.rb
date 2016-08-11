@@ -18,6 +18,13 @@ class User < ActiveRecord::Base
     user # 바로 user를 사용가능하도록 return
   end
 
+  def self.update_menu(meetup, user_info = {})
+    user = find_by(service_uid: user_info[:member_id])
+    # TODO: joins를 활용하여 Log, Task 정보 가져오고 업데이트
+    @user = user.id
+    @meetup = meetup.id
+  end
+
   # 해당 유저의 messenger별 email 주소 삽입
   def add_email(messenger_code, email)
     messenger = user_messengers.find_by(messenger_code: messenger_code)

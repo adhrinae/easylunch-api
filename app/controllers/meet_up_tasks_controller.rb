@@ -3,6 +3,7 @@ class MeetUpTasksController < ApplicationController
   before_action :check_params, only: [:menu]
   before_action :before_update_check, only: [:update]
   def menu
+    User.update_menu(@meetup, task_params)
   end
 
   def update
@@ -12,6 +13,11 @@ class MeetUpTasksController < ApplicationController
     def task_params
       params.require(:data).permit(:email, :messenger, :messenger_room_id,
                                    :member_id, :price, :menu, :status)
+    end
+
+    def find_meetup
+      @meetup = MealMeetUp.find_by(messenger_room_id:
+                                   task_params[:messenger_room_id])
     end
 
     def params_valid?
@@ -24,6 +30,7 @@ class MeetUpTasksController < ApplicationController
          task_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
     end
 
+    # 상태 업데이트를 위해 상태가 비어있는지 확인
     def before_update_check
       params_authorizable? && !task_params[:status].to_s.empty?
     end
