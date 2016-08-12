@@ -2,5 +2,5 @@ language: ruby
 rvm:
   - 2.3.1
 before_script:
- - cp config/database.yml.traivs config/database.yml
+ - cp config/database.yml.travis config/database.yml
  - psql -c 'create travis_ci_test;' -U postgres
