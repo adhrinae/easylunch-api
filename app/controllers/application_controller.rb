@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error_401
-    render json: { error: 'cannot verify user / meetup information' },
+    render json: { error: 'cannot verify user or meetup information' },
            status: 401
   end
 

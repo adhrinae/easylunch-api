@@ -54,7 +54,7 @@ change	db/migrate/20160719103627_create_meal_logs.rb	/^  def change$/;"	f	class:
 change	db/migrate/20160719103931_create_meal_meet_up_logs.rb	/^  def change$/;"	f	class:CreateMealMeetUpLogs
 change	db/migrate/20160719135136_change_code_table_column.rb	/^  def change$/;"	f	class:ChangeCodeTableColumn
 change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"	f	class:ChangeUserAndMessenger
-check_meetup	app/helpers/members_helper.rb	/^  def check_meetup$/;"	f	class:MembersHelper
+check_meetup	app/controllers/members_controller.rb	/^    def check_meetup$/;"	f	class:MembersController
 check_meetup_create	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_create$/;"	f	class:MealMeetUpHelper
 check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_update$/;"	f	class:MealMeetUpHelper
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
@@ -77,10 +77,9 @@ member_params	app/controllers/members_controller.rb	/^    def member_params$/;"	
 menu	app/controllers/meet_up_tasks_controller.rb	/^  def menu$/;"	f	class:MeetUpTasksController
 menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_response(meetup, meal_log)$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
+params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
 params_authorizable?	app/helpers/meal_meet_up_helper.rb	/^  def params_authorizable?$/;"	f	class:MealMeetUpHelper
-params_authorizable?	app/helpers/members_helper.rb	/^  def params_authorizable?$/;"	f	class:MembersHelper
 params_valid?	app/controllers/meet_up_tasks_controller.rb	/^    def params_valid?$/;"	f	class:MeetUpTasksController
-params_valid?	app/helpers/members_helper.rb	/^  def params_valid?$/;"	f	class:MembersHelper
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController
