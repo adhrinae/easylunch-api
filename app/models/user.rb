@@ -8,21 +8,44 @@ class User < ActiveRecord::Base
   def self.init_member(member_uid, meetup, messenger_code, task_code)
     user = find_by(service_uid: member_uid)
     if user.nil?
-      user = User.create(service_uid: member_uid)
-      user_log = MealLog.create(user_id: user.id)
-      UserMessenger.create(user_id: user.id, messenger_code: messenger_code)
-      MealMeetUpTask.create(meal_log_id: user_log.id,
-                            meal_meet_up_id: meetup.id,
-                            task_status: task_code)
+      result = enroll_new_user(member_uid, meetup, messenger_code, task_code)
+    elsif user && user.find_enrolled_meetup(meetup.id).empty?
+      result = enroll_exist_user(user, meetup, task_code)
     end
-    user # 바로 user를 사용가능하도록 return
+    result # Admin 등록을 위해 user정보가 리턴되어야 함
+  end
+
+  # DB에 기록되어있지 않은 맴버를 새로 생성
+  def self.enroll_new_user(member_uid, meetup, messenger_code, task_code)
+    user = User.create(service_uid: member_uid)
+    user_log = MealLog.create(user_id: user.id)
+    UserMessenger.create(user_id: user.id, messenger_code: messenger_code)
+    MealMeetUpTask.create(meal_log_id: user_log.id,
+                          meal_meet_up_id: meetup.id,
+                          task_status: task_code)
+    user
+  end
+
+  # DB에 등록된 적 있는 맴버가 새로운 MeetUp에 등록되는 경우
+  def self.enroll_exist_user(user, meetup, task_code)
+    user_log = MealLog.create(user_id: user.id)
+    MealMeetUpTask.create(meal_log_id: user_log.id,
+                          meal_meet_up_id: meetup.id,
+                          task_status: task_code)
+    user
   end
 
   def self.update_menu(meetup, user_info = {})
     user = find_by(service_uid: user_info[:member_id])
     # TODO: joins를 활용하여 Log, Task 정보 가져오고 업데이트
-    @user = user.id
-    @meetup = meetup.id
+    @user_id = user.id
+    @meetup_id = meetup.id
+  end
+
+  # 해당 user의 MeetUp등록 여부를 찾기 위해 Log > Task 연결하여 검색
+  def find_enrolled_meetup(meetup_id)
+    meal_logs.joins(:meal_meet_up_task).where(meal_meet_up_tasks:
+                                              { meal_meet_up_id: meetup_id })
   end
 
   # 해당 유저의 messenger별 email 주소 삽입
