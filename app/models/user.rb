@@ -37,14 +37,14 @@ class User < ActiveRecord::Base
 
   def self.update_menu(meetup, user_info = {})
     user = find_by(service_uid: user_info[:member_id])
-    # TODO: joins를 활용하여 Log, Task 정보 가져오고 업데이트
-    @user_id = user.id
-    @meetup_id = meetup.id
+    user_log = user.find_enrolled_meetup(meetup.id) # 해당 MeetUp에 속하는 MealLog
+    user_log.update(menu_name: user_info[:menu], price: user_info[:price])
+    user_log
   end
 
   # 해당 user의 MeetUp등록 여부를 찾기 위해 Log > Task 연결하여 검색
   def find_enrolled_meetup(meetup_id)
-    meal_logs.joins(:meal_meet_up_task).where(meal_meet_up_tasks:
+    meal_logs.joins(:meal_meet_up_task).find_by(meal_meet_up_tasks:
                                               { meal_meet_up_id: meetup_id })
   end
 

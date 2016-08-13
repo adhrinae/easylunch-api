@@ -60,6 +60,9 @@ check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_upda
 check_params	app/controllers/application_controller.rb	/^  def check_params$/;"	f	class:ApplicationController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 email_invalid?	app/controllers/application_controller.rb	/^  def email_invalid?(email)$/;"	f	class:ApplicationController
+enroll_exist_user	app/models/user.rb	/^  def self.enroll_exist_user(user, meetup, task_code)$/;"	F	class:User
+enroll_new_user	app/models/user.rb	/^  def self.enroll_new_user(member_uid, meetup, messenger_code, task_code)$/;"	F	class:User
+find_enrolled_meetup	app/models/user.rb	/^  def find_enrolled_meetup(meetup_id)$/;"	f	class:User
 find_meetup	app/controllers/meet_up_tasks_controller.rb	/^    def find_meetup$/;"	f	class:MeetUpTasksController
 find_meetup	app/controllers/members_controller.rb	/^    def find_meetup$/;"	f	class:MembersController
 find_meetup	app/helpers/meal_meet_up_helper.rb	/^  def find_meetup$/;"	f	class:MealMeetUpHelper
@@ -75,6 +78,7 @@ load_status_code	app/helpers/meal_meet_up_helper.rb	/^  def load_status_code(sta
 meetup_params	app/controllers/meal_meet_up_controller.rb	/^    def meetup_params$/;"	f	class:MealMeetUpController
 member_params	app/controllers/members_controller.rb	/^    def member_params$/;"	f	class:MembersController
 menu	app/controllers/meet_up_tasks_controller.rb	/^  def menu$/;"	f	class:MeetUpTasksController
+menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_response(meetup, meal_log)$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/helpers/meal_meet_up_helper.rb	/^  def params_authorizable?$/;"	f	class:MealMeetUpHelper
 params_authorizable?	app/helpers/members_helper.rb	/^  def params_authorizable?$/;"	f	class:MembersHelper
