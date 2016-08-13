@@ -7,42 +7,21 @@ class ApplicationController < ActionController::Base
     CodeTable.find_messenger(params[:messenger]).id
   end
 
-  def email_invalid?(email)
-    !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-  end
-
   def render_200(json)
-    respond_to do |format|
-      format.json { render json: json, status: 200 }
-    end
+    render json: json, status: 200
   end
 
   def render_201(json)
-    respond_to do |format|
-      format.json { render json: json, status: 201 }
-    end
-  end
-
-  def render_error_400
-    respond_to do |format|
-      format.json do
-        render json: { error: 'invalid parameters' }, status: 400
-      end
-    end
+    render json: json, status: 201
   end
 
   def render_error_401
-    respond_to do |format|
-      format.json do
-        render json: { error: 'cannot verify user information' }, status: 401
-      end
-    end
+    render json: { error: 'cannot verify user / meetup information' },
+           status: 401
   end
 
-  def check_params
-    if !params_valid?
-      render_error_400
-    elsif !params_authorizable?
+  def authorize_params
+    if !params_authorizable?
       render_error_401
     else
       return true

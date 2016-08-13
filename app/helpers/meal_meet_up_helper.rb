@@ -16,33 +16,21 @@ module MealMeetUpHelper
   def check_meetup_create
     meetup = find_meetup
     return true if meetup.nil?
-    respond_to do |format|
-      format.json do
-        render json: { error: 'meetup already created' }, status: 400
-      end
-    end
+    render json: { error: 'meetup already created' }, status: 400
   end
 
-  # 해당하는 meetup이 없으면 에러
+  # 해당하는 meetup이 없거나 admin_uid가 불일치하면 에러
   def check_meetup_update
     meetup = find_meetup
     if meetup.nil?
-      render_error_400
-    elsif meetup.admin.service_uid != meetup_params[:messenger_user_id].to_s
-      render_error_401
-    else
-      return true
+      render json: { error: 'cannot find meetup' }, status: 400
+    elsif !meetup.nil? && meetup.admin.service_uid != meetup_params[:admin_uid]
+      render json: { error: 'invalid admin_uid' }, status: 401
     end
   end
 
-  def params_valid?
-    !meetup_params[:messenger].empty? &&
-      !meetup_params[:messenger_room_id].to_s.empty?
-  end
-
   def params_authorizable?
-    # messenger_user_id가 optional이지만, 지금은 슬랙을 중심으로 개발중이고 이후에 가능하면 수정
-    !email_invalid?(meetup_params[:email]) &&
-      !meetup_params[:messenger_user_id].to_s.empty?
+    [meetup_params[:messenger], meetup_params[:admin_uid],
+     meetup_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
   end
 end

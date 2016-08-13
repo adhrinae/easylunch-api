@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     user = find_by(service_uid: member_uid)
     if user.nil?
       result = enroll_new_user(member_uid, meetup, messenger_code, task_code)
-    elsif user && user.find_enrolled_meetup(meetup.id).empty?
+    elsif user && user.find_enrolled_meetup(meetup.id).nil?
       result = enroll_exist_user(user, meetup, task_code)
     end
     result # Admin 등록을 위해 user정보가 리턴되어야 함
@@ -46,17 +46,5 @@ class User < ActiveRecord::Base
   def find_enrolled_meetup(meetup_id)
     meal_logs.joins(:meal_meet_up_task).find_by(meal_meet_up_tasks:
                                               { meal_meet_up_id: meetup_id })
-  end
-
-  # 해당 유저의 messenger별 email 주소 삽입
-  def add_email(messenger_code, email)
-    messenger = user_messengers.find_by(messenger_code: messenger_code)
-    messenger.update(messenger_user_email: email)
-  end
-
-  # 해당 유저의 messenger_code에 해당하는 email 주소 검색
-  def find_messenger_email(messenger_code)
-    messenger = user_messengers.find_by(messenger_code: messenger_code)
-    messenger.messenger_user_email
   end
 end
