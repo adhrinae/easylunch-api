@@ -15,6 +15,12 @@ class User < ActiveRecord::Base
     result # Admin 등록을 위해 user정보가 리턴되어야 함
   end
 
+  def self.delete_member(member_uid, meetup)
+    user = find_by(service_uid: member_uid)
+    target_log = user.find_enrolled_meetup(meetup.id)
+    target_log.destroy
+  end
+
   # DB에 기록되어있지 않은 맴버를 새로 생성
   def self.enroll_new_user(member_uid, meetup, messenger_code, task_code)
     user = User.create(service_uid: member_uid)
