@@ -42,7 +42,6 @@ UserMessenger	app/models/user_messenger.rb	/^class UserMessenger < ActiveRecord:
 UserMessengerTest	test/models/user_messenger_test.rb	/^class UserMessengerTest < ActiveSupport::TestCase$/;"	c
 UserTest	test/models/user_test.rb	/^class UserTest < ActiveSupport::TestCase$/;"	c
 add_member	app/controllers/members_controller.rb	/^  def add_member$/;"	f	class:MembersController
-add_user_response	app/controllers/members_controller.rb	/^    def add_user_response(meetup)$/;"	f	class:MembersController
 authorize_params	app/controllers/application_controller.rb	/^  def authorize_params$/;"	f	class:ApplicationController
 change	db/migrate/20160719100000_create_code_tables.rb	/^  def change$/;"	f	class:CreateCodeTables
 change	db/migrate/20160719103245_create_users.rb	/^  def change$/;"	f	class:CreateUsers
@@ -53,12 +52,15 @@ change	db/migrate/20160719103627_create_meal_logs.rb	/^  def change$/;"	f	class:
 change	db/migrate/20160719103931_create_meal_meet_up_logs.rb	/^  def change$/;"	f	class:CreateMealMeetUpLogs
 change	db/migrate/20160719135136_change_code_table_column.rb	/^  def change$/;"	f	class:ChangeCodeTableColumn
 change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"	f	class:ChangeUserAndMessenger
+check_add_member	app/controllers/members_controller.rb	/^    def check_add_member$/;"	f	class:MembersController
+check_delete_member	app/controllers/members_controller.rb	/^    def check_delete_member$/;"	f	class:MembersController
 check_meetup_create	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_create$/;"	f	class:MealMeetUpController
 check_meetup_update	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_update$/;"	f	class:MealMeetUpController
-check_member_info	app/controllers/members_controller.rb	/^    def check_member_info$/;"	f	class:MembersController
 check_menu_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_menu_info$/;"	f	class:MeetUpTasksController
 check_update_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_update_info$/;"	f	class:MeetUpTasksController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
+delete_member	app/controllers/members_controller.rb	/^  def delete_member$/;"	f	class:MembersController
+delete_member	app/models/user.rb	/^  def self.delete_member(member_uid, meetup)$/;"	F	class:User
 enroll_exist_user	app/models/user.rb	/^  def self.enroll_exist_user(user, meetup, task_code)$/;"	F	class:User
 enroll_new_user	app/models/user.rb	/^  def self.enroll_new_user(member_uid, meetup, messenger_code, task_code)$/;"	F	class:User
 enrolled_user	app/models/user.rb	/^  def self.enrolled_user?(user_id, meetup)$/;"	F	class:User
@@ -74,6 +76,7 @@ load_messenger_code	app/controllers/application_controller.rb	/^  def load_messe
 load_task_code	app/controllers/application_controller.rb	/^  def load_task_code(task)$/;"	f	class:ApplicationController
 meetup_params	app/controllers/meal_meet_up_controller.rb	/^    def meetup_params$/;"	f	class:MealMeetUpController
 member_params	app/controllers/members_controller.rb	/^    def member_params$/;"	f	class:MembersController
+member_response	app/controllers/members_controller.rb	/^    def member_response(meetup)$/;"	f	class:MembersController
 menu	app/controllers/meet_up_tasks_controller.rb	/^  def menu$/;"	f	class:MeetUpTasksController
 menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_response(meetup, meal_log)$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params_authorizable?$/;"	f	class:MealMeetUpController
