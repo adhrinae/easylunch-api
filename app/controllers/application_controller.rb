@@ -3,39 +3,37 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
+  def load_meetup_code(status)
+    CodeTable.find_meetup_status(status).id
+  end
+
   def load_messenger_code(params)
     CodeTable.find_messenger(params[:messenger]).id
   end
 
-  def email_invalid?(email)
-    !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
+  def load_task_code(task)
+    CodeTable.find_task_status(task).id
+  end
+
+  def find_meetup
+    @meetup = MealMeetUp.find_by(messenger_room_id:
+                                 params[:data][:messenger_room_id])
   end
 
   def render_200(json)
-    respond_to do |format|
-      format.json { render json: json, status: 200 }
-    end
+    render json: json, status: 200
   end
 
   def render_201(json)
-    respond_to do |format|
-      format.json { render json: json, status: 201 }
-    end
-  end
-
-  def render_error_400
-    respond_to do |format|
-      format.json do
-        render json: { error: 'invalid parameters' }, status: 400
-      end
-    end
+    render json: json, status: 201
   end
 
   def render_error_401
-    respond_to do |format|
-      format.json do
-        render json: { error: 'cannot verify user information' }, status: 401
-      end
-    end
+    render json: { error: 'cannot verify user or meetup information' },
+           status: 401
+  end
+
+  def authorize_params
+    render_error_401 if !params_authorizable?
   end
 end
