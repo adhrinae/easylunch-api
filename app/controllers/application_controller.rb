@@ -3,8 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
+  def load_meetup_code(status)
+    CodeTable.find_meetup_status(status).id
+  end
+
   def load_messenger_code(params)
     CodeTable.find_messenger(params[:messenger]).id
+  end
+
+  def load_task_code(task)
+    CodeTable.find_task_status(task).id
   end
 
   def find_meetup

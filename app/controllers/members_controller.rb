@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   before_action :find_meetup, only: [:add_member]
   def add_member
     entry_member = member_params[:member_id]
-    task_unpaid = CodeTable.find_task('unpaid').id
+    task_unpaid = load_task_code('unpaid')
     unless get_members_list(@meetup).include?(entry_member.to_s)
       User.init_member(entry_member, @meetup,
                        load_messenger_code(member_params), task_unpaid)

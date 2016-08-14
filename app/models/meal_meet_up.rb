@@ -10,6 +10,6 @@ class MealMeetUp < ActiveRecord::Base
   def self.init_meetup(params)
     create(messenger_code: CodeTable.find_messenger(params[:messenger]).id,
            messenger_room_id: params[:messenger_room_id],
-           meetup_status: CodeTable.find_status('created').id)
+           meetup_status: CodeTable.find_meetup_status('created').id)
   end
 end
