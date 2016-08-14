@@ -57,9 +57,11 @@ change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"
 check_meetup	app/controllers/members_controller.rb	/^    def check_meetup$/;"	f	class:MembersController
 check_meetup_create	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_create$/;"	f	class:MealMeetUpHelper
 check_meetup_update	app/helpers/meal_meet_up_helper.rb	/^  def check_meetup_update$/;"	f	class:MealMeetUpHelper
+check_menu_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_menu_info$/;"	f	class:MeetUpTasksController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 enroll_exist_user	app/models/user.rb	/^  def self.enroll_exist_user(user, meetup, task_code)$/;"	F	class:User
 enroll_new_user	app/models/user.rb	/^  def self.enroll_new_user(member_uid, meetup, messenger_code, task_code)$/;"	F	class:User
+enrolled_user	app/models/user.rb	/^  def self.enrolled_user?(user_id, meetup)$/;"	F	class:User
 find_enrolled_meetup	app/models/user.rb	/^  def find_enrolled_meetup(meetup_id)$/;"	f	class:User
 find_meetup	app/controllers/meet_up_tasks_controller.rb	/^    def find_meetup$/;"	f	class:MeetUpTasksController
 find_meetup	app/controllers/members_controller.rb	/^    def find_meetup$/;"	f	class:MembersController
@@ -79,7 +81,6 @@ menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_respons
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
 params_authorizable?	app/helpers/meal_meet_up_helper.rb	/^  def params_authorizable?$/;"	f	class:MealMeetUpHelper
-params_valid?	app/controllers/meet_up_tasks_controller.rb	/^    def params_valid?$/;"	f	class:MeetUpTasksController
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController

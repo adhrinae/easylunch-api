@@ -1,11 +1,18 @@
 # MealMeetUpTask Controller
 class MeetUpTasksController < ApplicationController
-  before_action :check_params, only: [:menu]
+  before_action :authorize_params, only: [:menu, :update]
+  before_action :check_menu_info, only: [:menu]
   before_action :before_update_check, only: [:update]
   def menu
     @meetup = find_meetup
-    @meal_log = User.update_menu(@meetup, task_params)
-    render_201(menu_response(@meetup, @meal_log))
+    if User.enrolled_user?(task_params[:member_id], @meetup)
+      @meal_log = User.update_menu(@meetup, task_params)
+      render_201(menu_response(@meetup, @meal_log))
+    else
+      render json:
+             { error: 'this member_id is not enrolled in the current meetup' },
+             status: 401
+    end
   end
 
   def update
@@ -13,7 +20,7 @@ class MeetUpTasksController < ApplicationController
 
   private
     def task_params
-      params.require(:data).permit(:email, :messenger, :messenger_room_id,
+      params.require(:data).permit(:messenger, :messenger_room_id,
                                    :member_id, :price, :menu, :status)
     end
 
@@ -22,11 +29,9 @@ class MeetUpTasksController < ApplicationController
                                    task_params[:messenger_room_id])
     end
 
-    # 기존에 결과를 리턴할 때는 일일이 DB에서 해당하는 값을 직접 검색하여 가져왔는데, 굳이 그럴 필요가 없어보인다.
     def menu_response(meetup, meal_log)
       { data:
-        { email: meal_log.user.find_messenger_email(meetup.messenger_code),
-          messenger: meetup.messenger.value,
+        { messenger: meetup.messenger.value,
           messenger_room_id: meetup.messenger_room_id,
           member_id: meal_log.user.service_uid,
           price: meal_log.price,
@@ -34,14 +39,17 @@ class MeetUpTasksController < ApplicationController
           status: meal_log.meal_meet_up_task.status.value } }
     end
 
-    def params_valid?
-      [task_params[:price], task_params[:menu]].all? { |e| !e.to_s.empty? }
+    def check_menu_info
+      if task_params[:menu].to_s.empty? || task_params[:price].to_s.empty?
+        render json: { error: 'menu informations needed' }, status: 400
+      else
+        true
+      end
     end
 
     def params_authorizable?
-      !email_invalid?(task_params[:email]) &&
-        [task_params[:messenger], task_params[:member_id],
-         task_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
+      [task_params[:messenger], task_params[:member_id],
+       task_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
     end
 
     # 상태 업데이트를 위해 상태가 비어있는지 확인

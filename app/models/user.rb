@@ -42,6 +42,13 @@ class User < ActiveRecord::Base
     user_log
   end
 
+  # 해당 유저가 MeetUp에 등록되어있는지 검사. 만약 유저 정보 자체가 없으면 false 리턴
+  def self.enrolled_user?(user_id, meetup)
+    user = find_by(service_uid: user_id)
+    return false if user.nil?
+    !user.find_enrolled_meetup(meetup.id).nil?
+  end
+
   # 해당 user의 MeetUp등록 여부를 찾기 위해 Log > Task 연결하여 검색
   def find_enrolled_meetup(meetup_id)
     meal_logs.joins(:meal_meet_up_task).find_by(meal_meet_up_tasks:
