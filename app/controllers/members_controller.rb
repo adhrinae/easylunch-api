@@ -1,7 +1,7 @@
 # Members Controller
 class MembersController < ApplicationController
   before_action :authorize_params, only: [:add_member]
-  before_action :check_meetup, only: [:add_member]
+  before_action :check_member_info, only: [:add_member]
   before_action :find_meetup, only: [:add_member]
   def add_member
     entry_member = member_params[:member_id]
@@ -20,14 +20,11 @@ class MembersController < ApplicationController
                                    :messenger_room_id, :member_id)
     end
 
-    def find_meetup
-      @meetup = MealMeetUp.find_by(messenger_room_id:
-                                   member_params[:messenger_room_id])
-    end
-
-    def check_meetup
+    def check_member_info
       meetup = find_meetup
-      if meetup.status.value != 'created'
+      if meetup.nil?
+        render json: { error: 'cannot find meetup' }, status: 400
+      elsif meetup.status.value != 'created'
         render json: { error: 'cannot add members to this meetup' }, status: 400
       elsif member_params[:member_id].to_s.empty?
         render json: { error: 'there is no member to enroll' }, status: 400

@@ -1,16 +1,7 @@
 # Helper Module for MealMeetUp Controller
 module MealMeetUpHelper
-  def load_status
-    meetup_params[:status].nil? ? 'created' : meetup_params[:status]
-  end
-
   def load_status_code(status)
     CodeTable.find_status(status).id
-  end
-
-  def find_meetup
-    @meetup = MealMeetUp.find_by(messenger_room_id:
-                                 meetup_params[:messenger_room_id])
   end
 
   def check_meetup_create
@@ -24,7 +15,7 @@ module MealMeetUpHelper
     meetup = find_meetup
     if meetup.nil?
       render json: { error: 'cannot find meetup' }, status: 400
-    elsif !meetup.nil? && meetup.admin.service_uid != meetup_params[:admin_uid]
+    elsif meetup.admin.service_uid != meetup_params[:admin_uid].to_s
       render json: { error: 'invalid admin_uid' }, status: 401
     end
   end

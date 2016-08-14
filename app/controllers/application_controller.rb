@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
     CodeTable.find_messenger(params[:messenger]).id
   end
 
+  def find_meetup
+    @meetup = MealMeetUp.find_by(messenger_room_id:
+                                 params[:data][:messenger_room_id])
+  end
+
   def render_200(json)
     render json: json, status: 200
   end
@@ -21,10 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_params
-    if !params_authorizable?
-      render_error_401
-    else
-      return true
-    end
+    render_error_401 if !params_authorizable?
   end
 end

@@ -4,6 +4,7 @@ class MealMeetUpController < ApplicationController
   before_action :authorize_params, only: [:create, :update]
   before_action :check_meetup_create, only: [:create]
   before_action :check_meetup_update, only: [:update]
+  before_action :find_meetup, only: [:create, :update]
 
   def create
     init_meetup
