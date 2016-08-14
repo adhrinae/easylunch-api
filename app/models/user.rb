@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
     user_log
   end
 
+  def self.update_task_status(meetup, user_info = {})
+    task_code = CodeTable.find_task_status(user_info[:status]).id
+    user = User.find_by(service_uid: user_info[:member_id])
+    task = user.find_enrolled_meetup(meetup.id).meal_meet_up_task
+    task.update(task_status: task_code)
+    task
+  end
+
   # 해당 유저가 MeetUp에 등록되어있는지 검사. 만약 유저 정보 자체가 없으면 false 리턴
   def self.enrolled_user?(user_id, meetup)
     user = find_by(service_uid: user_id)

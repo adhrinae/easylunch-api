@@ -19,10 +19,10 @@ class CodeTable < ActiveRecord::Base
   scope :find_messenger, lambda { |messenger|
     find_by(code_type: 'messenger', value: messenger)
   }
-  scope :find_status, lambda { |status|
+  scope :find_meetup_status, lambda { |status|
     find_by(code_type: 'meetup_status', value: status)
   }
-  scope :find_task, lambda { |task|
+  scope :find_task_status, lambda { |task|
     find_by(code_type: 'task_status', value: task)
   }
 end
