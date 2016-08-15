@@ -7,11 +7,13 @@ class MembersController < ApplicationController
   def add_member
     entry_member = member_params[:member_id].to_s
     task_unpaid = load_task_code('unpaid')
-    unless get_members_list(@meetup).include?(entry_member)
+    if !get_members_list(@meetup).include?(entry_member)
       User.init_member(entry_member, @meetup,
                        load_messenger_code(member_params), task_unpaid)
+      render_201(member_response(find_meetup)) # 새로 MeetUp을 로딩해야 올바른 목록이 나온다.
+    else
+      render json: { error: 'already enrolled member' }, status: 400
     end
-    render_200(member_response(find_meetup)) # 새로 MeetUp을 로딩해야 올바른 목록이 나온다.
   end
 
   def delete_member
