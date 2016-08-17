@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
     user = User.find_by(service_uid: user_info[:member_id])
     task = user.find_enrolled_meetup(meetup.id).meal_meet_up_task
     task.update(task_status: task_code)
+    task.check_completed
     task
   end
 

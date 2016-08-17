@@ -52,9 +52,11 @@ class MeetUpTasksController < ApplicationController
 
     def check_menu_info
       if find_meetup.nil?
-        render json: { error: 'cannot find meetup' }, status: 400
-      elsif task_params[:menu].to_s.empty? || task_params[:price].to_s.empty?
-        render json: { error: 'menu informations needed' }, status: 400
+        render_error_400('cannot find meetup')
+      elsif find_meetup.total_price.nil?
+        render_error_400('set up total_price first')
+      elsif task_params[:menu].empty? || task_params[:price].empty?
+        render_error_400('menu informations needed')
       end
     end
 
