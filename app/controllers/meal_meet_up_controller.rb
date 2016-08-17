@@ -15,9 +15,14 @@ class MealMeetUpController < ApplicationController
   end
 
   def update
-    @meetup.update(total_price: meetup_params[:total_price],
-                   meetup_status: load_meetup_code(meetup_params[:status]))
-    render_200(response_json_update(@meetup))
+    # TODO: status가 올바른 값이 아니면 걸러내기(코드가 꼬이지 않도록)
+    if meetup_params[:total_price].to_i <= 0
+      render json: { error: 'invalid total_price' }, status: 400
+    else
+      @meetup.update_status(meetup_params[:total_price],
+                            meetup_params[:status])
+      render_200(response_json_update(@meetup))
+    end
   end
 
   private

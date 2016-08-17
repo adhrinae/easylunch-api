@@ -82,6 +82,7 @@ menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_respons
 params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params_authorizable?$/;"	f	class:MealMeetUpController
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
+price_avg	app/models/meal_meet_up.rb	/^  def price_avg(total_price)$/;"	f	class:MealMeetUp
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController
@@ -93,4 +94,5 @@ update	app/controllers/meal_meet_up_controller.rb	/^  def update$/;"	f	class:Mea
 update	app/controllers/meet_up_tasks_controller.rb	/^  def update$/;"	f	class:MeetUpTasksController
 update_menu	app/models/user.rb	/^  def self.update_menu(meetup, user_info = {})$/;"	F	class:User
 update_response	app/controllers/meet_up_tasks_controller.rb	/^    def update_response(meetup, task)$/;"	f	class:MeetUpTasksController
+update_status	app/models/meal_meet_up.rb	/^  def update_status(total_price, meetup_status)$/;"	f	class:MealMeetUp
 update_task_status	app/models/user.rb	/^  def self.update_task_status(meetup, user_info = {})$/;"	F	class:User
