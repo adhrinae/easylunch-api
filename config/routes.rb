@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'meal_meet_ups/show'  => 'meal_meet_up#show', defaults: { format: 'json' }
   post 'meal_meet_ups'  => 'meal_meet_up#create', defaults: { format: 'json' }
   patch 'meal_meet_ups' => 'meal_meet_up#update', defaults: { format: 'json' }
 

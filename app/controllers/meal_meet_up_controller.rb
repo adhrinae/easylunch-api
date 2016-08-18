@@ -1,9 +1,13 @@
 # meal_meet_ups api controller
 class MealMeetUpController < ApplicationController
-  before_action :authorize_params, only: [:create, :update]
+  before_action :authorize_params, only: [:show, :create, :update]
   before_action :check_meetup_create, only: [:create]
-  before_action :check_meetup_update, only: [:update]
-  before_action :find_meetup, only: [:create, :update]
+  before_action :check_meetup_update, only: [:show, :update]
+  before_action :find_meetup, only: [:show, :create, :update]
+
+  def show
+    render_200(response_json_update(@meetup))
+  end
 
   def create
     init_meetup
