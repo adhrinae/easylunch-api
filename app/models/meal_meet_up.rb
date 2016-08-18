@@ -14,12 +14,12 @@ class MealMeetUp < ActiveRecord::Base
   end
 
   def update_status(total_price, meetup_status)
-    price_avg(total_price) if meetup_status == 'price_avg'
+    pay_avg(total_price) if meetup_status == 'paying_avg'
     update(total_price: total_price.to_i,
            meetup_status: CodeTable.find_meetup_status(meetup_status).id)
   end
 
-  def price_avg(total_price)
+  def pay_avg(total_price)
     avg_price = total_price / meal_meet_up_tasks.count
     meal_meet_up_tasks.each do |task|
       task.meal_log.update(price: avg_price)
