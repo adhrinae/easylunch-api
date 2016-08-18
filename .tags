@@ -84,7 +84,7 @@ menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_respons
 params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params_authorizable?$/;"	f	class:MealMeetUpController
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
-price_avg	app/models/meal_meet_up.rb	/^  def price_avg(total_price)$/;"	f	class:MealMeetUp
+pay_avg	app/models/meal_meet_up.rb	/^  def pay_avg(total_price)$/;"	f	class:MealMeetUp
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_400	app/controllers/application_controller.rb	/^  def render_error_400(message)$/;"	f	class:ApplicationController

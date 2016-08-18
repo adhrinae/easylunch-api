@@ -14,7 +14,7 @@ class MealMeetUp < ActiveRecord::Base
   end
 
   def update_status(total_price, meetup_status)
-    pay_avg(total_price) if meetup_status == 'paying_avg'
+    pay_avg(total_price.to_i) if meetup_status == 'paying_avg'
     update(total_price: total_price.to_i,
            meetup_status: CodeTable.find_meetup_status(meetup_status).id)
   end
