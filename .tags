@@ -67,6 +67,7 @@ enroll_new_user	app/models/user.rb	/^  def self.enroll_new_user(member_uid, meet
 enrolled_user	app/models/user.rb	/^  def self.enrolled_user?(user_id, meetup)$/;"	F	class:User
 find_enrolled_meetup	app/models/user.rb	/^  def find_enrolled_meetup(meetup_id)$/;"	f	class:User
 find_meetup	app/controllers/application_controller.rb	/^  def find_meetup$/;"	f	class:ApplicationController
+find_meetup	app/controllers/meet_up_tasks_controller.rb	/^    def find_meetup$/;"	f	class:MeetUpTasksController
 get_members_list	app/controllers/members_controller.rb	/^    def get_members_list(meetup)$/;"	f	class:MembersController
 init_meetup	app/controllers/meal_meet_up_controller.rb	/^    def init_meetup$/;"	f	class:MealMeetUpController
 init_meetup	app/models/meal_meet_up.rb	/^  def self.init_meetup(params)$/;"	F	class:MealMeetUp
@@ -91,6 +92,7 @@ render_error_401	app/controllers/application_controller.rb	/^  def render_error_
 response_json_create	app/controllers/meal_meet_up_controller.rb	/^    def response_json_create(meetup)$/;"	f	class:MealMeetUpController
 response_json_update	app/controllers/meal_meet_up_controller.rb	/^    def response_json_update(meetup)$/;"	f	class:MealMeetUpController
 set_admin_to_meetup	app/controllers/meal_meet_up_controller.rb	/^    def set_admin_to_meetup(admin, meetup)$/;"	f	class:MealMeetUpController
+show	app/controllers/meal_meet_up_controller.rb	/^  def show$/;"	f	class:MealMeetUpController
 task_params	app/controllers/meet_up_tasks_controller.rb	/^    def task_params$/;"	f	class:MeetUpTasksController
 update	app/controllers/meal_meet_up_controller.rb	/^  def update$/;"	f	class:MealMeetUpController
 update	app/controllers/meet_up_tasks_controller.rb	/^  def update$/;"	f	class:MeetUpTasksController
