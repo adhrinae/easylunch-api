@@ -44,4 +44,15 @@ class MealMeetUp < ActiveRecord::Base
       total + task.meal_log.price.to_i
     end
   end
+
+  # 해당 meetup과 관련된 모든 맴버들의 정보를 배열로 리턴
+  def members_info
+    meal_meet_up_tasks.map do |task|
+      log = task.meal_log
+      { member_uid: log.user.service_uid,
+        menu: log.menu_name,
+        price: log.price,
+        status: task.status.value }
+    end
+  end
 end

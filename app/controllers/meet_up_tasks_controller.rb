@@ -78,7 +78,9 @@ class MeetUpTasksController < ApplicationController
 
     # 상태 업데이트를 위해 상태가 비어있는지 확인
     def check_update_info
-      unless %w(unpaid paid).include?(task_params[:status].to_s)
+      if @meetup.total_price.to_s.empty?
+        render_error_400("set meetup's total_price first")
+      elsif %w(unpaid paid).include?(task_params[:status].to_s)
         render json: { error: 'invalid status' }, status: 400
       end
     end

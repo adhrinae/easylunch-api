@@ -83,6 +83,7 @@ load_task_code	app/controllers/application_controller.rb	/^  def load_task_code(
 meetup_params	app/controllers/meal_meet_up_controller.rb	/^    def meetup_params$/;"	f	class:MealMeetUpController
 member_params	app/controllers/members_controller.rb	/^    def member_params$/;"	f	class:MembersController
 member_response	app/controllers/members_controller.rb	/^    def member_response(meetup)$/;"	f	class:MembersController
+members_info	app/models/meal_meet_up.rb	/^  def members_info$/;"	f	class:MealMeetUp
 menu	app/controllers/meet_up_tasks_controller.rb	/^  def menu$/;"	f	class:MeetUpTasksController
 menu_response	app/controllers/meet_up_tasks_controller.rb	/^    def menu_response(meetup, meal_log)$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params_authorizable?$/;"	f	class:MealMeetUpController
