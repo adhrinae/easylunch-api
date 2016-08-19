@@ -25,4 +25,22 @@ class MealMeetUp < ActiveRecord::Base
       task.meal_log.update(price: avg_price)
     end
   end
+
+  # 사용자가 입력한 가격이 기존의 합계를 초과하는지 확인
+  def price_overcharged?(params)
+    user = User.find_by(service_uid: params[:member_id])
+    user_before_price = user.find_enrolled_meetup(id).price.to_i
+    price = params[:price].to_i
+
+    sum = price_sum
+
+    true if sum < sum - user_before_price + price
+  end
+
+  # 해당 MeetUp에 속한 모든 맴버들의 현재 지불가격 합계
+  def price_sum
+    meal_meet_up_tasks.joins(:meal_log).inject(0) do |total, task|
+      total + task.meal_log.price.to_i
+    end
+  end
 end
