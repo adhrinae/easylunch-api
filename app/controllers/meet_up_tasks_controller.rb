@@ -80,7 +80,7 @@ class MeetUpTasksController < ApplicationController
     def check_update_info
       if @meetup.total_price.to_s.empty?
         render_error_400("set meetup's total_price first")
-      elsif %w(unpaid paid).include?(task_params[:status].to_s)
+      elsif !%w(unpaid paid).include?(task_params[:status].to_s)
         render json: { error: 'invalid status' }, status: 400
       end
     end
