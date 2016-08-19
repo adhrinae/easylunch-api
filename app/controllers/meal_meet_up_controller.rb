@@ -1,12 +1,14 @@
 # meal_meet_ups api controller
 class MealMeetUpController < ApplicationController
-  before_action :authorize_params, only: [:show, :create, :update]
+  before_action :authorize_params, only: [:create, :update]
   before_action :find_meetup, only: [:show, :create, :update]
+  before_action :check_meetup_show, only: [:show]
   before_action :check_meetup_create, only: [:create]
-  before_action :check_meetup_update, only: [:show, :update]
+  before_action :check_meetup_update, only: [:update]
+  include MealMeetUpHelper
 
   def show
-    render_200(response_json_update(@meetup))
+    render_200(response_json_show(@meetup))
   end
 
   def create
@@ -45,6 +47,15 @@ class MealMeetUpController < ApplicationController
       meetup.update(admin_id: admin.id)
     end
 
+    def check_meetup_show
+      if @meetup.nil?
+        render_error_400('cannot find meetup')
+      elsif [meetup_params[:messenger],
+             meetup_params[:messenger_room_id]].any? { |e| e.to_s.empty? }
+        render json: { error: 'cannt verify meetup information' }, status: 401
+      end
+    end
+
     def check_meetup_create
       return true if @meetup.nil?
       render json: { error: 'meetup already created' }, status: 400
@@ -73,24 +84,5 @@ class MealMeetUpController < ApplicationController
     def params_authorizable?
       [meetup_params[:messenger], meetup_params[:admin_uid],
        meetup_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
-    end
-
-    # meetup#create 완료 후 반환할 정보
-    def response_json_create(meetup)
-      { data:
-        { messenger: meetup.messenger.value,
-          admin_uid: meetup.admin.service_uid,
-          messenger_room_id: meetup.messenger_room_id } }
-    end
-
-    # meetup#update 완료 후 반환할 정보
-    def response_json_update(meetup)
-      { data:
-        { messenger: meetup.messenger.value,
-          admin_uid: meetup.admin.service_uid,
-          messenger_room_id: meetup.messenger_room_id,
-          total_price: meetup.total_price,
-          status: meetup.status.value,
-          pay_type: meetup.pay_type } }
     end
 end

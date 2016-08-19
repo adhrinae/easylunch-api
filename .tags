@@ -58,6 +58,7 @@ check_add_member	app/controllers/members_controller.rb	/^    def check_add_membe
 check_completed	app/models/meal_meet_up_task.rb	/^  def check_completed$/;"	f	class:MealMeetUpTask
 check_delete_member	app/controllers/members_controller.rb	/^    def check_delete_member$/;"	f	class:MembersController
 check_meetup_create	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_create$/;"	f	class:MealMeetUpController
+check_meetup_show	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_show$/;"	f	class:MealMeetUpController
 check_meetup_update	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_update$/;"	f	class:MealMeetUpController
 check_menu_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_menu_info$/;"	f	class:MeetUpTasksController
 check_paying_avg	app/controllers/meet_up_tasks_controller.rb	/^    def check_paying_avg$/;"	f	class:MeetUpTasksController
@@ -94,8 +95,9 @@ render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_400	app/controllers/application_controller.rb	/^  def render_error_400(message)$/;"	f	class:ApplicationController
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController
-response_json_create	app/controllers/meal_meet_up_controller.rb	/^    def response_json_create(meetup)$/;"	f	class:MealMeetUpController
-response_json_update	app/controllers/meal_meet_up_controller.rb	/^    def response_json_update(meetup)$/;"	f	class:MealMeetUpController
+response_json_create	app/helpers/meal_meet_up_helper.rb	/^  def response_json_create(meetup)$/;"	f	class:MealMeetUpHelper
+response_json_show	app/helpers/meal_meet_up_helper.rb	/^  def response_json_show(meetup)$/;"	f	class:MealMeetUpHelper
+response_json_update	app/helpers/meal_meet_up_helper.rb	/^  def response_json_update(meetup)$/;"	f	class:MealMeetUpHelper
 set_admin_to_meetup	app/controllers/meal_meet_up_controller.rb	/^    def set_admin_to_meetup(admin, meetup)$/;"	f	class:MealMeetUpController
 show	app/controllers/meal_meet_up_controller.rb	/^  def show$/;"	f	class:MealMeetUpController
 task_params	app/controllers/meet_up_tasks_controller.rb	/^    def task_params$/;"	f	class:MeetUpTasksController
