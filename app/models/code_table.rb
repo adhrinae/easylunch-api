@@ -5,9 +5,8 @@ class CodeTable < ActiveRecord::Base
   # code_type: "messenger", code: 1, value: "telegram"
   # code_type: "messenger", code: 2, value: "kakotalk"
   # code_type: "meetup_status", code: 0, value: "created"
-  # code_type: "meetup_status", code: 1, value: "paying_avg"
-  # code_type: "meetup_status", code: 2, value: "paying_sep"
-  # code_type: "meetup_status", code: 3, value: "completed"
+  # code_type: "meetup_status", code: 1, value: "paying"
+  # code_type: "meetup_status", code: 2, value: "completed"
   # code_type: "task_status", code: 0, value: "unpaid"
   # code_type: "task_status", code: 1, value: "paid"
 

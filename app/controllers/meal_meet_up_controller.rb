@@ -1,12 +1,14 @@
 # meal_meet_ups api controller
 class MealMeetUpController < ApplicationController
-  before_action :authorize_params, only: [:show, :create, :update]
-  before_action :check_meetup_create, only: [:create]
-  before_action :check_meetup_update, only: [:show, :update]
+  before_action :authorize_params, only: [:create, :update]
   before_action :find_meetup, only: [:show, :create, :update]
+  before_action :check_meetup_show, only: [:show]
+  before_action :check_meetup_create, only: [:create]
+  before_action :check_meetup_update, only: [:update]
+  include MealMeetUpHelper
 
   def show
-    render_200(response_json_update(@meetup))
+    render_200(response_json_show(@meetup))
   end
 
   def create
@@ -24,15 +26,16 @@ class MealMeetUpController < ApplicationController
       render json: { error: 'invalid total_price' }, status: 400
     else
       @meetup.update_status(meetup_params[:total_price],
-                            meetup_params[:status])
+                            meetup_params[:status],
+                            meetup_params[:pay_type])
       render_200(response_json_update(@meetup))
     end
   end
 
   private
     def meetup_params
-      params.require(:data).permit(:messenger, :messenger_room_id,
-                                   :admin_uid, :total_price, :status)
+      params.require(:data).permit(:messenger, :messenger_room_id, :admin_uid,
+                                   :total_price, :status, :pay_type)
     end
 
     def init_meetup
@@ -44,42 +47,42 @@ class MealMeetUpController < ApplicationController
       meetup.update(admin_id: admin.id)
     end
 
+    def check_meetup_show
+      if @meetup.nil?
+        render_error_400('cannot find meetup')
+      elsif [meetup_params[:messenger],
+             meetup_params[:messenger_room_id]].any? { |e| e.to_s.empty? }
+        render json: { error: 'cannt verify meetup information' }, status: 401
+      end
+    end
+
     def check_meetup_create
-      meetup = find_meetup
-      return true if meetup.nil?
+      return true if @meetup.nil?
       render json: { error: 'meetup already created' }, status: 400
     end
 
-    # 해당하는 meetup이 없거나 admin_uid가 불일치하면 에러
+    # 해당하는 meetup이 없거나 admin_uid가 불일치, pay_type이 올바르지 않으면 에러
     def check_meetup_update
-      meetup = find_meetup
-      if meetup.nil?
-        render json: { error: 'cannot find meetup' }, status: 400
-      elsif meetup.admin.service_uid != meetup_params[:admin_uid].to_s
-        render json: { error: 'invalid admin_uid' }, status: 401
+      if @meetup.nil?
+        render_error_400('cannot find meetup')
+      elsif @meetup.admin.service_uid != meetup_params[:admin_uid].to_s
+        render_error_400('invalid admin_uid')
+      else
+        validate_pay_type
+      end
+    end
+
+    def validate_pay_type
+      if @meetup.status.value == 'paying' ||
+         meetup_params[:status] == 'paying'
+        unless %w(n s).include?(meetup_params[:pay_type])
+          render_error_400('invalid pay_type or pay_type needed')
+        end
       end
     end
 
     def params_authorizable?
       [meetup_params[:messenger], meetup_params[:admin_uid],
        meetup_params[:messenger_room_id]].all? { |e| !e.to_s.empty? }
-    end
-
-    # meetup#create 완료 후 반환할 정보
-    def response_json_create(meetup)
-      { data:
-        { messenger: meetup.messenger.value,
-          admin_uid: meetup.admin.service_uid,
-          messenger_room_id: meetup.messenger_room_id } }
-    end
-
-    # meetup#update 완료 후 반환할 정보
-    def response_json_update(meetup)
-      { data:
-        { messenger: meetup.messenger.value,
-          admin_uid: meetup.admin.service_uid,
-          messenger_room_id: meetup.messenger_room_id,
-          total_price: meetup.total_price,
-          status: meetup.status.value } }
     end
 end

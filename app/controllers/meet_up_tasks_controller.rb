@@ -59,17 +59,17 @@ class MeetUpTasksController < ApplicationController
 
     # 부득이하게 오류 검사를 두 액션으로 나눔
     def check_menu_info
-      meetup_status = @meetup.status.value
+      meetup_pay_type = @meetup.pay_type
       if @meetup.total_price.nil?
         render_error_400('set up total_price first')
-      elsif meetup_status == 'paying_avg' && !task_params[:price].nil?
+      elsif meetup_pay_type == 'n' && !task_params[:price].nil?
         render_error_400('the price was already fixed')
       end
     end
 
     def check_paying_avg
-      meetup_status = @meetup.status.value
-      if meetup_status != 'paying_avg' && task_params[:price].to_s.empty?
+      meetup_pay_type = @meetup.pay_type
+      if meetup_pay_type != 'n' && task_params[:price].to_s.empty?
         render_error_400('price value needed')
       elsif @meetup.price_overcharged?(task_params)
         render_error_400('price overcharged')
