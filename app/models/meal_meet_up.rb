@@ -13,10 +13,11 @@ class MealMeetUp < ActiveRecord::Base
            meetup_status: CodeTable.find_meetup_status('created').id)
   end
 
-  def update_status(total_price, meetup_status)
-    pay_avg(total_price.to_i) if meetup_status == 'paying_avg'
+  def update_status(total_price, meetup_status, pay_type)
+    pay_avg(total_price.to_i) if pay_type == 'n'
     update(total_price: total_price.to_i,
-           meetup_status: CodeTable.find_meetup_status(meetup_status).id)
+           meetup_status: CodeTable.find_meetup_status(meetup_status).id,
+           paying_status: pay_type)
   end
 
   def pay_avg(total_price)

@@ -24,15 +24,16 @@ class MealMeetUpController < ApplicationController
       render json: { error: 'invalid total_price' }, status: 400
     else
       @meetup.update_status(meetup_params[:total_price],
-                            meetup_params[:status])
+                            meetup_params[:status],
+                            meetup_params[:pay_type])
       render_200(response_json_update(@meetup))
     end
   end
 
   private
     def meetup_params
-      params.require(:data).permit(:messenger, :messenger_room_id,
-                                   :admin_uid, :total_price, :status)
+      params.require(:data).permit(:messenger, :messenger_room_id, :admin_uid,
+                                   :total_price, :status, :pay_type)
     end
 
     def init_meetup
