@@ -90,6 +90,7 @@ params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
 pay_avg	app/models/meal_meet_up.rb	/^  def pay_avg(total_price)$/;"	f	class:MealMeetUp
+price_entered?	app/models/user.rb	/^  def price_entered?(meetup)$/;"	f	class:User
 price_overcharged?	app/models/meal_meet_up.rb	/^  def price_overcharged?(params)$/;"	f	class:MealMeetUp
 price_sum	app/models/meal_meet_up.rb	/^  def price_sum$/;"	f	class:MealMeetUp
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController

@@ -70,4 +70,8 @@ class User < ActiveRecord::Base
     meal_logs.joins(:meal_meet_up_task).find_by(meal_meet_up_tasks:
                                               { meal_meet_up_id: meetup_id })
   end
+
+  def price_entered?(meetup)
+    !user.find_enrolled_meetup(meetup.id).price.nil?
+  end
 end

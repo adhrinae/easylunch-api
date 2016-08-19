@@ -18,6 +18,8 @@ class MeetUpTasksController < ApplicationController
 
   def update
     if User.enrolled_user?(task_params[:member_id], @meetup)
+      user = User.find_by(service_uid: task_params[:member_id])
+      render_error_400('no price entered') unless user.price_entered?(@meetup)
       task = User.update_task_status(@meetup, task_params)
       render_200(update_response(@meetup, task))
     else
