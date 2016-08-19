@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160819130408) do
     t.integer  "meetup_status"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "paying_status"
+    t.string   "pay_type"
   end
 
   create_table "user_messengers", force: :cascade do |t|

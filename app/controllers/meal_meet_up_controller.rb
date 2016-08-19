@@ -1,9 +1,9 @@
 # meal_meet_ups api controller
 class MealMeetUpController < ApplicationController
   before_action :authorize_params, only: [:show, :create, :update]
+  before_action :find_meetup, only: [:show, :create, :update]
   before_action :check_meetup_create, only: [:create]
   before_action :check_meetup_update, only: [:show, :update]
-  before_action :find_meetup, only: [:show, :create, :update]
 
   def show
     render_200(response_json_update(@meetup))
@@ -46,18 +46,27 @@ class MealMeetUpController < ApplicationController
     end
 
     def check_meetup_create
-      meetup = find_meetup
-      return true if meetup.nil?
+      return true if @meetup.nil?
       render json: { error: 'meetup already created' }, status: 400
     end
 
-    # 해당하는 meetup이 없거나 admin_uid가 불일치하면 에러
+    # 해당하는 meetup이 없거나 admin_uid가 불일치, pay_type이 올바르지 않으면 에러
     def check_meetup_update
-      meetup = find_meetup
-      if meetup.nil?
-        render json: { error: 'cannot find meetup' }, status: 400
-      elsif meetup.admin.service_uid != meetup_params[:admin_uid].to_s
-        render json: { error: 'invalid admin_uid' }, status: 401
+      if @meetup.nil?
+        render_error_400('cannot find meetup')
+      elsif @meetup.admin.service_uid != meetup_params[:admin_uid].to_s
+        render_error_400('invalid admin_uid')
+      else
+        validate_pay_type
+      end
+    end
+
+    def validate_pay_type
+      if @meetup.status.value == 'paying' ||
+         meetup_params[:status] == 'paying'
+        unless %w(n s).include?(meetup_params[:pay_type])
+          render_error_400('invalid pay_type or pay_type needed')
+        end
       end
     end
 
@@ -81,6 +90,7 @@ class MealMeetUpController < ApplicationController
           admin_uid: meetup.admin.service_uid,
           messenger_room_id: meetup.messenger_room_id,
           total_price: meetup.total_price,
-          status: meetup.status.value } }
+          status: meetup.status.value,
+          pay_type: meetup.pay_type } }
     end
 end

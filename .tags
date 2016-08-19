@@ -9,6 +9,7 @@ Application	config/application.rb	/^  class Application < Rails::Application$/;"
 ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
 ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
 ChangeCodeTableColumn	db/migrate/20160719135136_change_code_table_column.rb	/^class ChangeCodeTableColumn < ActiveRecord::Migration$/;"	c
+ChangeMealMeetUp	db/migrate/20160819130408_change_meal_meet_up.rb	/^class ChangeMealMeetUp < ActiveRecord::Migration$/;"	c
 ChangeUserAndMessenger	db/migrate/20160729122925_change_user_and_messenger.rb	/^class ChangeUserAndMessenger < ActiveRecord::Migration$/;"	c
 CodeTable	app/models/code_table.rb	/^class CodeTable < ActiveRecord::Base$/;"	c
 CodeTableTest	test/models/code_table_test.rb	/^class CodeTableTest < ActiveSupport::TestCase$/;"	c
@@ -52,12 +53,14 @@ change	db/migrate/20160719103627_create_meal_logs.rb	/^  def change$/;"	f	class:
 change	db/migrate/20160719103931_create_meal_meet_up_logs.rb	/^  def change$/;"	f	class:CreateMealMeetUpLogs
 change	db/migrate/20160719135136_change_code_table_column.rb	/^  def change$/;"	f	class:ChangeCodeTableColumn
 change	db/migrate/20160729122925_change_user_and_messenger.rb	/^  def change$/;"	f	class:ChangeUserAndMessenger
+change	db/migrate/20160819130408_change_meal_meet_up.rb	/^  def change$/;"	f	class:ChangeMealMeetUp
 check_add_member	app/controllers/members_controller.rb	/^    def check_add_member$/;"	f	class:MembersController
 check_completed	app/models/meal_meet_up_task.rb	/^  def check_completed$/;"	f	class:MealMeetUpTask
 check_delete_member	app/controllers/members_controller.rb	/^    def check_delete_member$/;"	f	class:MembersController
 check_meetup_create	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_create$/;"	f	class:MealMeetUpController
 check_meetup_update	app/controllers/meal_meet_up_controller.rb	/^    def check_meetup_update$/;"	f	class:MealMeetUpController
 check_menu_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_menu_info$/;"	f	class:MeetUpTasksController
+check_paying_avg	app/controllers/meet_up_tasks_controller.rb	/^    def check_paying_avg$/;"	f	class:MeetUpTasksController
 check_update_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_update_info$/;"	f	class:MeetUpTasksController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 delete_member	app/controllers/members_controller.rb	/^  def delete_member$/;"	f	class:MembersController
@@ -85,6 +88,8 @@ params_authorizable?	app/controllers/meal_meet_up_controller.rb	/^    def params
 params_authorizable?	app/controllers/meet_up_tasks_controller.rb	/^    def params_authorizable?$/;"	f	class:MeetUpTasksController
 params_authorizable?	app/controllers/members_controller.rb	/^    def params_authorizable?$/;"	f	class:MembersController
 pay_avg	app/models/meal_meet_up.rb	/^  def pay_avg(total_price)$/;"	f	class:MealMeetUp
+price_overcharged?	app/models/meal_meet_up.rb	/^  def price_overcharged?(params)$/;"	f	class:MealMeetUp
+price_sum	app/models/meal_meet_up.rb	/^  def price_sum$/;"	f	class:MealMeetUp
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
 render_error_400	app/controllers/application_controller.rb	/^  def render_error_400(message)$/;"	f	class:ApplicationController
@@ -98,5 +103,6 @@ update	app/controllers/meal_meet_up_controller.rb	/^  def update$/;"	f	class:Mea
 update	app/controllers/meet_up_tasks_controller.rb	/^  def update$/;"	f	class:MeetUpTasksController
 update_menu	app/models/user.rb	/^  def self.update_menu(meetup, user_info = {})$/;"	F	class:User
 update_response	app/controllers/meet_up_tasks_controller.rb	/^    def update_response(meetup, task)$/;"	f	class:MeetUpTasksController
-update_status	app/models/meal_meet_up.rb	/^  def update_status(total_price, meetup_status)$/;"	f	class:MealMeetUp
+update_status	app/models/meal_meet_up.rb	/^  def update_status(total_price, meetup_status, pay_type)$/;"	f	class:MealMeetUp
 update_task_status	app/models/user.rb	/^  def self.update_task_status(meetup, user_info = {})$/;"	F	class:User
+validate_pay_type	app/controllers/meal_meet_up_controller.rb	/^    def validate_pay_type$/;"	f	class:MealMeetUpController
