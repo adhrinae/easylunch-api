@@ -63,6 +63,7 @@ check_meetup_update	app/controllers/meal_meet_up_controller.rb	/^    def check_m
 check_menu_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_menu_info$/;"	f	class:MeetUpTasksController
 check_paying_avg	app/controllers/meet_up_tasks_controller.rb	/^    def check_paying_avg$/;"	f	class:MeetUpTasksController
 check_update_info	app/controllers/meet_up_tasks_controller.rb	/^    def check_update_info$/;"	f	class:MeetUpTasksController
+check_user_data	app/controllers/meet_up_tasks_controller.rb	/^    def check_user_data$/;"	f	class:MeetUpTasksController
 create	app/controllers/meal_meet_up_controller.rb	/^  def create$/;"	f	class:MealMeetUpController
 delete_member	app/controllers/members_controller.rb	/^  def delete_member$/;"	f	class:MembersController
 delete_member	app/models/user.rb	/^  def self.delete_member(member_uid, meetup)$/;"	F	class:User
@@ -93,8 +94,10 @@ pay_avg	app/models/meal_meet_up.rb	/^  def pay_avg(total_price)$/;"	f	class:Meal
 price_entered?	app/models/user.rb	/^  def price_entered?(meetup)$/;"	f	class:User
 price_overcharged?	app/models/meal_meet_up.rb	/^  def price_overcharged?(params)$/;"	f	class:MealMeetUp
 price_sum	app/models/meal_meet_up.rb	/^  def price_sum$/;"	f	class:MealMeetUp
+ready_to_update?	app/models/user.rb	/^  def ready_to_update?(meetup, status)$/;"	f	class:User
 render_200	app/controllers/application_controller.rb	/^  def render_200(json)$/;"	f	class:ApplicationController
 render_201	app/controllers/application_controller.rb	/^  def render_201(json)$/;"	f	class:ApplicationController
+render_already_enrolled_member	app/controllers/meet_up_tasks_controller.rb	/^    def render_already_enrolled_member$/;"	f	class:MeetUpTasksController
 render_error_400	app/controllers/application_controller.rb	/^  def render_error_400(message)$/;"	f	class:ApplicationController
 render_error_401	app/controllers/application_controller.rb	/^  def render_error_401$/;"	f	class:ApplicationController
 response_json_create	app/helpers/meal_meet_up_helper.rb	/^  def response_json_create(meetup)$/;"	f	class:MealMeetUpHelper

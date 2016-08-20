@@ -10,22 +10,20 @@ class MeetUpTasksController < ApplicationController
       meal_log = User.update_menu(@meetup, task_params)
       render_201(menu_response(@meetup, meal_log))
     else
-      render json:
-             { error: 'this member_id is not enrolled in the current meetup' },
-             status: 401
+      render_already_enrolled_member
     end
   end
 
   def update
     if User.enrolled_user?(task_params[:member_id], @meetup)
-      user = User.find_by(service_uid: task_params[:member_id])
-      render_error_400('no price entered') unless user.price_entered?(@meetup)
-      task = User.update_task_status(@meetup, task_params)
-      render_200(update_response(@meetup, task))
+      if !check_user_data.nil?
+        render_error_400(check_user_data)
+      else
+        task = User.update_task_status(@meetup, task_params)
+        render_200(update_response(@meetup, task))
+      end
     else
-      render json:
-             { error: 'this member_id is not enrolled in the current meetup' },
-             status: 401
+      render_already_enrolled_member
     end
   end
 
@@ -78,13 +76,27 @@ class MeetUpTasksController < ApplicationController
       end
     end
 
-    # 상태 업데이트를 위해 상태가 비어있는지 확인
     def check_update_info
       if @meetup.total_price.to_s.empty?
         render_error_400("set meetup's total_price first")
       elsif !%w(unpaid paid).include?(task_params[:status].to_s)
         render json: { error: 'invalid status' }, status: 400
       end
+    end
+
+    def check_user_data
+      user = User.find_by(service_uid: task_params[:member_id])
+      if !user.price_entered?(@meetup)
+        'no price entered'
+      elsif !user.ready_to_update?(@meetup, task_params[:status])
+        'cannot change to same status'
+      end
+    end
+
+    def render_already_enrolled_member
+      render json:
+             { error: 'this member_id is not enrolled in the current meetup' },
+             status: 401
     end
 
     def params_authorizable?

@@ -72,6 +72,12 @@ class User < ActiveRecord::Base
   end
 
   def price_entered?(meetup)
-    !user.find_enrolled_meetup(meetup.id).price.nil?
+    !find_enrolled_meetup(meetup.id).price.nil?
+  end
+
+  def ready_to_update?(meetup, status)
+    task = find_enrolled_meetup(meetup.id).meal_meet_up_task
+    paying_status = task.status.value
+    paying_status != status # 패러미터로 받은 상태와, 이미 지정된 상태가 달라야 업데이트 가능
   end
 end
