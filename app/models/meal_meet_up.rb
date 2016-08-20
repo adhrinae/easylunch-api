@@ -35,7 +35,7 @@ class MealMeetUp < ActiveRecord::Base
 
     sum = price_sum
 
-    true if sum < sum - user_before_price + price
+    total_price < sum - user_before_price + price
   end
 
   # 해당 MeetUp에 속한 모든 맴버들의 현재 지불가격 합계
