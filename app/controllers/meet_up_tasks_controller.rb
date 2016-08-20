@@ -3,7 +3,6 @@ class MeetUpTasksController < ApplicationController
   before_action :authorize_params, only: [:menu, :update]
   before_action :find_meetup, only: [:menu, :update]
   before_action :check_menu_info, only: [:menu]
-  before_action :check_paying_avg, only: [:menu]
   before_action :check_update_info, only: [:update]
   def menu
     if User.enrolled_user?(task_params[:member_id], @meetup)
@@ -57,20 +56,12 @@ class MeetUpTasksController < ApplicationController
           status: task.status.value } }
     end
 
-    # 부득이하게 오류 검사를 두 액션으로 나눔
     def check_menu_info
       meetup_pay_type = @meetup.pay_type
       if @meetup.total_price.nil?
         render_error_400('set up total_price first')
       elsif meetup_pay_type == 'n' && !task_params[:price].nil?
         render_error_400('the price was already fixed')
-      end
-    end
-
-    def check_paying_avg
-      meetup_pay_type = @meetup.pay_type
-      if meetup_pay_type != 'n' && task_params[:price].to_s.empty?
-        render_error_400('price value needed')
       elsif @meetup.price_overcharged?(task_params)
         render_error_400('price overcharged')
       end
