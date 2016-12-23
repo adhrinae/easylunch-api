@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+# use '#!/bin/sh' if you're using macOS
 
 origin_path="../../.githooks"
 target_path="../.git/hooks"

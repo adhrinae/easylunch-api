@@ -1,63 +1,28 @@
 # Helper Module for MealMeetUp Controller
 module MealMeetUpHelper
-  def load_status
-    meetup_params[:status].nil? ? 'created' : meetup_params[:status]
+  def response_json_show(meetup)
+    basic_data = response_json_update(meetup)
+    members_info = meetup.members_info
+    { data: basic_data[:data].merge(members_count: members_info.count,
+                                    members: members_info) }
   end
 
-  def load_status_code
-    CodeTable.find_status(load_status).id
+  # meetup#create 완료 후 반환할 정보
+  def response_json_create(meetup)
+    { data:
+      { messenger: meetup.messenger.value,
+        admin_uid: meetup.admin.service_uid,
+        messenger_room_id: meetup.messenger_room_id } }
   end
 
-  def load_messenger_code
-    CodeTable.find_messenger(meetup_params[:messenger]).id
-  end
-
-  def load_user
-    params = meetup_params
-    if load_status == 'created'
-      @user = User.create(email: params[:email])
-      UserMessenger.create(user_id: @user.id,
-                           messenger_user_id: params[:messenger_user_id],
-                           messenger_code: load_messenger_code)
-    else
-      @user = User.find_by(email: params[:email])
-    end
-    @user
-  end
-
-  def find_meetup
-    @meetup = MealMeetUp.find_by(messenger_room_id:
-                                 @params[:messenger_room_id])
-  end
-
-  def params_valid?
-    !meetup_params[:messenger].empty? &&
-      !meetup_params[:messenger_room_id].to_s.empty?
-  end
-
-  def params_authroizable?
-    # messenger_user_id가 optional이지만, 지금은 슬랙을 중심으로 개발중이고 이후에 가능하면 수정
-    !email_invalid?(meetup_params[:email]) &&
-      !meetup_params[:messenger_user_id].to_s.empty?
-  end
-
-  def email_invalid?(email)
-    !(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
-  end
-
-  def render_error_400
-    respond_to do |format|
-      format.json do
-        render json: { error: 'invalid parameters' }, status: 400
-      end
-    end
-  end
-
-  def render_error_401
-    respond_to do |format|
-      format.json do
-        render json: { error: 'cannot verify user information' }, status: 401
-      end
-    end
+  # meetup#update 완료 후 반환할 정보
+  def response_json_update(meetup)
+    { data:
+      { messenger: meetup.messenger.value,
+        admin_uid: meetup.admin.service_uid,
+        messenger_room_id: meetup.messenger_room_id,
+        total_price: meetup.total_price,
+        status: meetup.status.value,
+        pay_type: meetup.pay_type } }
   end
 end
